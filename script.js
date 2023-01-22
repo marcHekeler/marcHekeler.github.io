@@ -31,16 +31,9 @@ function placeApple() {
 function resetGame() {
     snake = {
         cells: [
-            {x: 7, y:0},
-            {x: 6, y:0},
-            {x: 5, y:0},
-            {x: 4, y:0},
-            {x: 3, y:0},
-            {x: 2, y:0},
-            {x: 1, y:0},
             {x: 0, y:0}
         ],
-        length: 8,
+        length: 1,
         direction: 'r', // 'l', 'r', 'u', 'd'
     };
     nextDirection = 'r';
@@ -82,6 +75,10 @@ function doesSnakeContainPosition({x, y}) {
     return ret;
 }
 
+function snakeEatsApple({x, y}) {
+    return applePosition.x === x && applePosition.y === y;
+}
+
 function moveSnake() {
     window.requestAnimationFrame(moveSnake);
     
@@ -108,7 +105,12 @@ function moveSnake() {
 
     // add new cell to sake
     snake.cells.unshift(newPosition);
-    snake.cells.pop();
+    if(snakeEatsApple(newPosition)) {
+        snake.length += 1;
+        placeApple();
+    } else {
+        snake.cells.pop();
+    }
 
     // draw current cell
     fillCell(snake.cells[0], 'green');
