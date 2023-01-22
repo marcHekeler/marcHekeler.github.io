@@ -2,7 +2,7 @@
 var canvas = document.getElementById('game');
 var context = canvas.getContext('2d');
 
-var squareLength = 16;
+var cellLength = 16;
 var speedCounter = 0;
 
 const snake = {
@@ -10,9 +10,9 @@ const snake = {
     y: 0,
 }
 
-function fillSquare(x, y, color) {
+function fillCell(x, y, color) {
     context.fillStyle = color;
-    context.fillRect(x * squareLength, y * squareLength, squareLength - 1, squareLength - 1);
+    context.fillRect(x * cellLength, y * cellLength, cellLength - 1, cellLength - 1);
 }
 
 function moveSnake() {
@@ -23,9 +23,9 @@ function moveSnake() {
     }
     speedCounter = 0;
 
-    fillSquare(snake.x, snake.y, 'black');
+    fillCell(snake.x, snake.y, 'black');
     snake.x = snake.x === 24 ? 0 : snake.x + 1;
-    fillSquare(snake.x, snake.y, 'green');
+    fillCell(snake.x, snake.y, 'green');
     window.requestAnimationFrame(moveSnake);
 }
 
