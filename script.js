@@ -6,6 +6,27 @@ var cellLength = 16;
 var speedCounter = 0;
 var nextDirection;
 var snake;
+var applePosition;
+
+function fillCell({x, y}, color) {
+    context.fillStyle = color;
+    context.fillRect(x * cellLength, y * cellLength, cellLength - 1, cellLength - 1);
+}
+
+function getRandomInteger(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+
+function placeApple() {
+    var posX;
+    var posY;
+    do {
+        posX = getRandomInteger(0, 24);
+        posY = getRandomInteger(0, 24);
+    } while (doesSnakeContainPosition({x: posX, y: posY}))
+    applePosition = {x: posX, y: posY};
+    fillCell(applePosition, 'red');
+}
 
 function resetGame() {
     snake = {
@@ -24,11 +45,7 @@ function resetGame() {
     };
     nextDirection = 'r';
     context.clearRect(0,0,canvas.width,canvas.height);
-}
-
-function fillCell({x, y}, color) {
-    context.fillStyle = color;
-    context.fillRect(x * cellLength, y * cellLength, cellLength - 1, cellLength - 1);
+    placeApple();
 }
 
 function getCurrentPosition() {
