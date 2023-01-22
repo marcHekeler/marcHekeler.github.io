@@ -3,6 +3,7 @@ var canvas = document.getElementById('game');
 var context = canvas.getContext('2d');
 
 var squareLength = 16;
+var speedCounter = 0;
 
 const snake = {
     x: 0,
@@ -19,6 +20,12 @@ function fillSquare(x, y, color) {
 }
 
 function moveSnake() {
+    
+    if(speedCounter++ < 4) {
+        window.requestAnimationFrame(moveSnake);
+        return;
+    }
+    speedCounter = 0;
 
     clearCanvas();
     snake.x = snake.x === 24 ? 0 : snake.x + 1;
