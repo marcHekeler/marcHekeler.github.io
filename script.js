@@ -4,17 +4,26 @@ var context = canvas.getContext('2d');
 
 var cellLength = 16;
 var speedCounter = 0;
-var nextDirection = 'r';
+var nextDirection;
+var snake;
 
-const snake = {
-    cells: [
-        {x: 3, y:0},
-        {x: 2, y:0},
-        {x: 1, y:0},
-        {x: 0, y:0}
-    ],
-    length: 4,
-    direction: 'r', // 'l', 'r', 'u', 'd'
+function resetGame() {
+    snake = {
+        cells: [
+            {x: 7, y:0},
+            {x: 6, y:0},
+            {x: 5, y:0},
+            {x: 4, y:0},
+            {x: 3, y:0},
+            {x: 2, y:0},
+            {x: 1, y:0},
+            {x: 0, y:0}
+        ],
+        length: 8,
+        direction: 'r', // 'l', 'r', 'u', 'd'
+    };
+    nextDirection = 'r';
+    context.clearRect(0,0,canvas.width,canvas.height);
 }
 
 function fillCell({x, y}, color) {
@@ -46,10 +55,20 @@ function getNewY() {
     return getCurrentPosition().y;
 }
 
+function doesSnakeContainPosition({x, y}) {
+    var ret = false;
+    snake.cells.forEach((cell) => {
+        if(cell.x === x && cell.y === y) {
+            ret = true;
+        }
+    });
+    return ret;
+}
+
 function moveSnake() {
+    window.requestAnimationFrame(moveSnake);
     
     if(speedCounter++ < 5) {
-        window.requestAnimationFrame(moveSnake);
         return;
     }
     speedCounter = 0;
@@ -62,15 +81,20 @@ function moveSnake() {
 
     // set nextDirection directly before changing direction
     snake.direction = nextDirection;
-    
+    const newPosition = {x: getNewX(), y: getNewY()};
+
+    // check if new Position is within snake
+    if(doesSnakeContainPosition(newPosition)) {
+        resetGame();
+        return;
+    };
+
     // add new cell to sake
-    snake.cells.unshift({x: getNewX(), y: getNewY()});
+    snake.cells.unshift(newPosition);
     snake.cells.pop();
 
     // draw current cell
     fillCell(snake.cells[0], 'green');
-
-    window.requestAnimationFrame(moveSnake);
 }
 
 document.addEventListener('keydown', function(e) {
@@ -95,4 +119,5 @@ document.addEventListener('keydown', function(e) {
 });
 
 // start
+resetGame();
 window.requestAnimationFrame(moveSnake);
