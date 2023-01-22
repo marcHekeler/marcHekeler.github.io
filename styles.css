@@ -9,8 +9,6 @@ h1 {
 
 #game {
     display:block;
-    height: 400px;
-    width: 400px;
     border: 1px solid white;
     margin: 0 auto;
 }
