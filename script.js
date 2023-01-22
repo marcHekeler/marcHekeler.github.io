@@ -28,12 +28,19 @@ function moveSnake() {
     }
     speedCounter = 0;
 
+    // clear last cell
     fillCell(snake.cells[snake.length-1], 'black');
+
     const newX = snake.cells[0].x === 24 ? 0 : snake.cells[0].x +1;
     const newY = snake.cells[0].y;
+
+    // add new cell to sake
     snake.cells.unshift({x: newX, y: newY});
     snake.cells.pop();
+
+    // draw current cell
     fillCell(snake.cells[0], 'green');
+
     window.requestAnimationFrame(moveSnake);
 }
 
