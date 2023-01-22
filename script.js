@@ -10,10 +10,6 @@ const snake = {
     y: 0,
 }
 
-function clearCanvas() {
-  context.clearRect(0,0,canvas.width,canvas.height);
-}
-
 function fillSquare(x, y, color) {
     context.fillStyle = color;
     context.fillRect(x * squareLength, y * squareLength, squareLength - 1, squareLength - 1);
@@ -27,7 +23,7 @@ function moveSnake() {
     }
     speedCounter = 0;
 
-    clearCanvas();
+    fillSquare(snake.x, snake.y, 'black');
     snake.x = snake.x === 24 ? 0 : snake.x + 1;
     fillSquare(snake.x, snake.y, 'green');
     window.requestAnimationFrame(moveSnake);
