@@ -4,6 +4,7 @@ var context = canvas.getContext('2d');
 
 var cellLength = 16;
 var speedCounter = 0;
+var nextDirection = 'r';
 
 const snake = {
     cells: [
@@ -47,7 +48,7 @@ function getNewY() {
 
 function moveSnake() {
     
-    if(speedCounter++ < 4) {
+    if(speedCounter++ < 5) {
         window.requestAnimationFrame(moveSnake);
         return;
     }
@@ -59,6 +60,9 @@ function moveSnake() {
     const newX = snake.cells[0].x === 24 ? 0 : snake.cells[0].x +1;
     const newY = snake.cells[0].y;
 
+    // set nextDirection directly before changing direction
+    snake.direction = nextDirection;
+    
     // add new cell to sake
     snake.cells.unshift({x: getNewX(), y: getNewY()});
     snake.cells.pop();
@@ -70,23 +74,22 @@ function moveSnake() {
 }
 
 document.addEventListener('keydown', function(e) {
-    console.log(e);
     switch(e.key) {
         // left
         case 'ArrowLeft':
-            if(snake.direction !== 'r') snake.direction = 'l';
+            if(snake.direction !== 'r') nextDirection = 'l';
             break;
         // up
         case 'ArrowUp':
-            if(snake.direction !== 'd') snake.direction = 'u';
+            if(snake.direction !== 'd') nextDirection = 'u';
             break;
         // right
         case 'ArrowRight':
-            if(snake.direction !== 'l') snake.direction = 'r';
+            if(snake.direction !== 'l') nextDirection = 'r';
             break;
         // down
         case 'ArrowDown':
-            if(snake.direction !== 'u') snake.direction = 'd';
+            if(snake.direction !== 'u') nextDirection = 'd';
             break;
     };
 });
