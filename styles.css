@@ -10,5 +10,15 @@ h1 {
 #game {
     display:block;
     border: 1px solid white;
+}
+
+#gameWrapper {
     margin: 0 auto;
+    width: 400px;
+}
+
+#score {
+    color: green;
+    width: 100%;
+    text-align: right;
 }

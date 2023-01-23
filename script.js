@@ -39,6 +39,7 @@ function resetGame() {
     nextDirection = 'r';
     context.clearRect(0,0,canvas.width,canvas.height);
     placeApple();
+    document.getElementById('score').textContent = 0;
 }
 
 function getCurrentPosition() {
@@ -106,6 +107,7 @@ function moveSnake() {
     // add new cell to sake
     snake.cells.unshift(newPosition);
     if(snakeEatsApple(newPosition)) {
+        document.getElementById('score').textContent = snake.length;
         snake.length += 1;
         placeApple();
     } else {
