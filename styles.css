@@ -1,6 +1,6 @@
 body {
     background: black;
-  	color: white;
+  	color: #ee7f01;
 }
 
 h1 {
@@ -14,11 +14,10 @@ h1 {
 
 #gameWrapper {
     margin: 0 auto;
+    text-align: right;
     width: 400px;
 }
 
 #score {
-    color: green;
     width: 100%;
-    text-align: right;
 }

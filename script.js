@@ -25,7 +25,7 @@ function placeApple() {
         posY = getRandomInteger(0, 24);
     } while (doesSnakeContainPosition({x: posX, y: posY}))
     applePosition = {x: posX, y: posY};
-    fillCell(applePosition, 'red');
+    fillCell(applePosition, 'green');
 }
 
 function resetGame() {
@@ -115,7 +115,7 @@ function moveSnake() {
     }
 
     // draw current cell
-    fillCell(snake.cells[0], 'green');
+    fillCell(snake.cells[0], '#ee7f01');
 }
 
 document.addEventListener('keydown', function(e) {
