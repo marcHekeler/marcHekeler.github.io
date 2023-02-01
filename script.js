@@ -1,3 +1,4 @@
+"use-strict"
 // definitions
 var canvas = document.getElementById('game');
 var context = canvas.getContext('2d');
@@ -40,6 +41,7 @@ function resetGame() {
     context.clearRect(0,0,canvas.width,canvas.height);
     placeApple();
     document.getElementById('score').textContent = 0;
+    document.getElementById('highscore').textContent = localStorage.getItem('highscore');
 }
 
 function getCurrentPosition() {
@@ -100,6 +102,9 @@ function moveSnake() {
 
     // check if new Position is within snake
     if(doesSnakeContainPosition(newPosition)) {
+        if(!localStorage.getItem('highscore') || snake.length - 1 > localStorage.getItem('highscore')) {
+            localStorage.setItem('highscore', snake.length - 1);
+        }
         resetGame();
         return;
     };
